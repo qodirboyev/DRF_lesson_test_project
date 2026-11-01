@@ -3,7 +3,8 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-from rest_framework.generics import ListCreateAPIView,RetrieveDestroyAPIView
+from rest_framework.generics import ListCreateAPIView,RetrieveUpdateDestroyAPIView
+from rest_framework.viewsets import ModelViewSet
 from .models import Student
 from .serializer import StudentSerializer
 # Create your views here.
@@ -129,13 +130,22 @@ from .serializer import StudentSerializer
 
 
 ########------------Tayor generics viewlar
-class StudentList(ListCreateAPIView):
-    queryset = Student.objects.all()
-    serializer_class = StudentSerializer
-
-
-
-class StudentDetail(RetrieveDestroyAPIView):
-    queryset = Student.objects.all()
-    serializer_class = StudentSerializer
+# class StudentList(ListCreateAPIView):
+#     queryset = Student.objects.all()
+#     serializer_class = StudentSerializer
+#
+#
+#
+# class StudentDetail(RetrieveUpdateDestroyAPIView):
+#     queryset = Student.objects.all()
+#     serializer_class = StudentSerializer
 ########------------Tayor generics viewlar
+
+
+
+
+#################------------------ModelViewSet bilan ishlash
+class StudentModelViewSet(ModelViewSet):
+    queryset = Student.objects.all()
+    serializer_class = StudentSerializer
+#################------------------ModelViewSet bilan ishlash
