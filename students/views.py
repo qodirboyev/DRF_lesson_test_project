@@ -7,6 +7,7 @@ from rest_framework.generics import ListCreateAPIView,RetrieveUpdateDestroyAPIVi
 from rest_framework.viewsets import ModelViewSet
 from .models import Student
 from .serializer import StudentSerializer
+from rest_framework.permissions import IsAuthenticated
 # Create your views here.
 
 
@@ -149,3 +150,9 @@ class StudentModelViewSet(ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
 #################------------------ModelViewSet bilan ishlash
+
+
+class ProfileAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self,request,format=None):
+        return Response({"username":request.user.username,"id":request.user.id})
