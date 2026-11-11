@@ -7,7 +7,9 @@ from rest_framework.generics import ListCreateAPIView,RetrieveUpdateDestroyAPIVi
 from rest_framework.viewsets import ModelViewSet
 from .models import Student
 from .serializer import StudentSerializer
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated,IsAuthenticatedOrReadOnly
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter,OrderingFilter
 # Create your views here.
 
 
@@ -149,6 +151,13 @@ from rest_framework.permissions import IsAuthenticated
 class StudentModelViewSet(ModelViewSet):
     queryset = Student.objects.all()
     serializer_class = StudentSerializer
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
+    filter_backends = (DjangoFilterBackend,SearchFilter,OrderingFilter)
+    filterset_fields=["name"]
+    search_fields = ["name"]
+    ordering_fields = ["id","name"]
+
 #################------------------ModelViewSet bilan ishlash
 
 
